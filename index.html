@@ -1,11 +1,14 @@
-<canvas width="900" height="900"></canvas>
+<canvas width="600" height="400"></canvas>
 
 <script>
 
     var tela = document.querySelector('canvas');
     var pincel = tela.getContext('2d');
+
     pincel.fillStyle = 'lightgray';
-    pincel.fillRect(0, 0, 700, 500);
+    pincel.fillRect(0, 0, 600, 400);
+
+    var raio = 10;
 
     function desenhaCirculo(x, y, raio, cor) {
 
@@ -13,17 +16,35 @@
         pincel.beginPath();
         pincel.arc(x, y, raio, 0, 2 * Math.PI);
         pincel.fill();
+
+   }
+
+    function limpaTela() {
+    pincel.clearRect(0, 0, 600, 400);
+
     }
 
-    function desenhaFlor(x, y) {
+    function desenhaAlvo(x, y) {
 
-        desenhaCirculo(x, y+20, 10, 'blue');
-        desenhaCirculo(x, y, 10, 'red');
-        desenhaCirculo(x, y-20, 10, 'yellow');
-        desenhaCirculo(x-20, y, 10, 'orange');
-        desenhaCirculo(x+20, y, 10, 'black');
+    desenhaCirculo(x, y, raio+20, 'red');
+    desenhaCirculo(x, y, raio+10, 'white');
+    desenhaCirculo(x, y, raio, 'red');
+
     }
 
-    desenhaFlor(300, 200);
+    function sorteiaPosicao(maximo) {
+
+        return Math.floor(Math.random() * maximo);
+
+    }
+
+    function atualizaTela() {
+    limpaTela();
+    var xAleatorio = sorteiaPosicao(600);
+    var yAleatorio = sorteiaPosicao(400);
+    desenhaAlvo(xAleatorio, yAleatorio);
+    }
+
+    setInterval(atualizaTela, 1000);
 
 </script>
